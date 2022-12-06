@@ -1,0 +1,10 @@
+{
+  "name": "assessment_task",
+  "version": "1.0.0",
+  "description": "Valere Margins - Node.js Backend Developer Assessment",
+  "main": "index.js",
+  "scripts": {
+  },
+  "author": "Domagoj Petreković",
+  "license": "ISC"
+}
