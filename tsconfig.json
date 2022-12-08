@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "baseUrl": "./",
+      "outDir": "build/dist",
+      "module": "CommonJS",
+      "target": "ESNext",
+      "lib": ["ES6", "DOM", "ESNext"],
+      "sourceMap": true,
+      "allowJs": true,
+      "rootDir": ".",
+      "moduleResolution": "node",
+      "noImplicitReturns": true,
+      "noImplicitThis": true,
+      "noImplicitAny": true,
+      "strictNullChecks": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+    },
+    "include": ["**/*.ts"],
+    "exclude": ["node_modules"]
+  }
