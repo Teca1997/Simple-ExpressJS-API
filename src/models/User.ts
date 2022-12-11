@@ -27,7 +27,7 @@ export class User extends BaseEntity {
   @Column({ type: "char", length: 60 })
   password!: string;
 
-  @Column({ type: "timestamptz" })
+  @Column({ type: "timestamptz", nullable: true })
   verifiedDate!: Date;
 
   @Column({ type: "number", name: "roleId", default: 1 })

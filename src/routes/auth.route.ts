@@ -1,10 +1,10 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 
 import { AuthController } from "../controllers/auth.controller";
 
 const router = express.Router();
 
-router.post("/register", (res: Request, req: Response) =>
+router.post("/register", (res: Request, req: Response, next: NextFunction) =>
   AuthController.register(res, req)
 );
 

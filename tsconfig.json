@@ -17,6 +17,7 @@
       "strictNullChecks": true,
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
+      "types": ["./src/@types"]
     },
     "include": ["**/*.ts"],
     "exclude": ["node_modules"]

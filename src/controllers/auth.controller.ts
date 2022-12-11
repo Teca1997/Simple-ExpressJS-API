@@ -25,17 +25,18 @@ export class AuthController {
     try {
       let userId = await UserService.addUser(validationResponse.value);
       let emailVerificationToken =
-        await TokenService.generateEmailVerificationToken(userId!, "1");
+        await TokenService.generateEmailVerificationToken(userId!, 1);
       EmailService.sendEmail(
         validationResponse.value.email,
         "Email verification",
         emailVerificationToken
       );
-      return res
-        .status(200)
-        .send(
-          "All data valid. User saved to database. Verification email sent."
-        );
+      return res.status(200).send(
+        `All data valid. 
+          User saved to database. 
+          Verification email sent. 
+          Verification token: ${emailVerificationToken}`
+      );
     } catch (error) {
       console.log(error);
       return res
@@ -51,6 +52,12 @@ export class AuthController {
 
     if (validationResponse.error) {
       return res.status(400).send(validationResponse.error.message);
+    }
+
+    try {
+      TokenService.verifyToken(validationResponse.value.token);
+    } catch (error) {
+      res.status(400).send("Bad token!");
     }
 
     return res.status(200).send("Email verified.");

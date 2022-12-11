@@ -15,5 +15,6 @@ declare namespace NodeJs {
     DB_SYNCHRONISE: string;
     DB_DROPDB: string;
     DB_INSERTDATA: string;
+    TOKEN_KEY: string;
   }
 }
