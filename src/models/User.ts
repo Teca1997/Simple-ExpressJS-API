@@ -8,7 +8,9 @@ import {
 
 import { BaseEntity } from "./BaseEntity";
 import { Role } from "./Role";
+import { SportClass } from "./SportClass";
 import { Token } from "./Token";
+import { UserSportClass } from "./UserSportClass";
 import { userRepo } from "../db";
 
 @Entity()
@@ -34,6 +36,11 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Token, (token) => token.user, { nullable: false })
   tokens?: Token[];
+
+  @OneToMany(() => UserSportClass, (userSportClass) => userSportClass.user, {
+    nullable: false,
+  })
+  classes?: SportClass[];
 
   static async isUsernameTaken(username: string): Promise<boolean> {
     return (await userRepo.findOne({ where: { username } })) == null

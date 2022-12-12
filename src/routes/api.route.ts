@@ -11,4 +11,6 @@ router.post(
   APIControlller.getfilteredClases
 );
 
+router.get("/api/classes/:classId", APIControlller.getClass);
+
 export const APIRouter = { router };

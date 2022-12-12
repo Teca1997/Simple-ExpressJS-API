@@ -13,5 +13,5 @@ export class Sport {
   @OneToMany(() => SportClass, (sportClass) => sportClass.sport, {
     nullable: false,
   })
-  classes?: number[];
+  classes?: SportClass[];
 }
