@@ -9,12 +9,10 @@ import {
 import { BaseEntity } from "./BaseEntity";
 import { Role } from "./Role";
 import { Token } from "./Token";
-import { db } from "../db";
+import { userRepo } from "../db";
 
 @Entity()
 export class User extends BaseEntity {
-  static userRepo = db.getRepository("user");
-
   @PrimaryGeneratedColumn("increment")
   id?: number;
 
@@ -38,13 +36,13 @@ export class User extends BaseEntity {
   tokens?: Token[];
 
   static async isUsernameTaken(username: string): Promise<boolean> {
-    return (await this.userRepo.findOne({ where: { username } })) == null
+    return (await userRepo.findOne({ where: { username } })) == null
       ? false
       : true;
   }
 
   static async isEmailTaken(email: string): Promise<boolean> {
-    return (await this.userRepo.findOne({ where: { email } })) == null
+    return (await userRepo.findOne({ where: { email } })) == null
       ? false
       : true;
   }

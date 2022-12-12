@@ -1,9 +1,9 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-import { User } from "./User";
+import { SportClass } from "./SportClass";
 
 @Entity()
-export class Role {
+export class ClassType {
   @PrimaryGeneratedColumn("increment")
   id?: number;
 
@@ -13,6 +13,8 @@ export class Role {
   @Column({ type: "text" })
   description!: string;
 
-  @OneToMany(() => User, (user) => user.role)
-  users?: User[] | null;
+  @OneToMany(() => SportClass, (sportClass) => sportClass.sport, {
+    nullable: false,
+  })
+  classes?: number[];
 }

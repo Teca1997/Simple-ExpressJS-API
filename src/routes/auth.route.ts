@@ -1,15 +1,20 @@
-import express, { NextFunction, Request, Response } from "express";
-
 import { AuthController } from "../controllers/auth.controller";
+import { AuthValidator } from "../validators/auth.validator";
+import express from "express";
+import { validate } from "../middlewares/validate";
 
 const router = express.Router();
 
-router.post("/register", (res: Request, req: Response, next: NextFunction) =>
-  AuthController.register(res, req)
+router.post(
+  "/register",
+  validate(AuthValidator.registration),
+  AuthController.register
 );
 
-router.post("/verifyemail", (res: Request, req: Response) => {
-  AuthController.verifyEmail(res, req);
-});
+router.post(
+  "/verifyemail",
+  validate(AuthValidator.emailVerification),
+  AuthController.verifyEmail
+);
 
 export const AuthRouter = { router };

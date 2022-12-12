@@ -9,7 +9,6 @@
       "lib": ["ES6", "DOM", "ESNext"],
       "sourceMap": true,
       "allowJs": true,
-      "rootDir": ".",
       "moduleResolution": "node",
       "noImplicitReturns": true,
       "noImplicitThis": true,
@@ -17,7 +16,7 @@
       "strictNullChecks": true,
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
-      "types": ["./src/@types"]
+      "typeRoots": ["./src/@types/", "./node_modules/@type"]
     },
     "include": ["**/*.ts"],
     "exclude": ["node_modules"]
