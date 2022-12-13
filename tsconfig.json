@@ -2,8 +2,7 @@
     "compilerOptions": {
       "esModuleInterop": true,
       "allowSyntheticDefaultImports": true,
-      "baseUrl": "./",
-      "outDir": "build/dist",
+      "baseUrl": ".",
       "module": "CommonJS",
       "target": "ESNext",
       "lib": ["ES6", "DOM", "ESNext"],
@@ -16,8 +15,9 @@
       "strictNullChecks": true,
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
-      "typeRoots": ["./src/@types/", "./node_modules/@type"]
+      "rootDir": ".",
+      "typeRoots": ["src/@types", "node_modules/@types"]
     },
-    "include": ["**/*.ts"],
+    "include": ["src/**/*.ts"],
     "exclude": ["node_modules"]
   }

@@ -7,10 +7,12 @@ import {
 } from "typeorm";
 
 import { BaseEntity } from "./BaseEntity";
+import { Moment } from "moment";
 import { Role } from "./Role";
 import { SportClass } from "./SportClass";
 import { Token } from "./Token";
 import { UserSportClass } from "./UserSportClass";
+import bcrypt from "bcryptjs";
 import { userRepo } from "../db";
 
 @Entity()
@@ -28,11 +30,11 @@ export class User extends BaseEntity {
   password!: string;
 
   @Column({ type: "timestamptz", nullable: true })
-  verifiedDate!: Date;
+  verifiedDate?: Moment;
 
   @Column({ type: "number", name: "roleId", default: 1 })
   @ManyToOne(() => Role, (role) => role.users, { nullable: false })
-  role!: number;
+  role?: number;
 
   @OneToMany(() => Token, (token) => token.user, { nullable: false })
   tokens?: Token[];
@@ -52,5 +54,9 @@ export class User extends BaseEntity {
     return (await userRepo.findOne({ where: { email } })) == null
       ? false
       : true;
+  }
+
+  public async doesPasswordMatch?(password: string): Promise<boolean> {
+    return await bcrypt.compare(password, this.password);
   }
 }

@@ -1,11 +1,6 @@
-import "@types";
+import "types";
 
 declare global {
-  interface EmailVerificationToken {
-    type: string;
-    expiryDate: Date;
-  }
-
   namespace NodeJs {
     interface ProcessEnv {
       DB_USERNAME: string;
@@ -21,8 +16,6 @@ declare global {
       PORT: string;
       TOKEN_KEY: string;
       EMAIL_FROM: string;
-
-      test(a: string): string;
     }
   }
 }

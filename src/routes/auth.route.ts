@@ -17,4 +17,6 @@ router.post(
   AuthController.verifyEmail
 );
 
+router.post("/login", validate(AuthValidator.login), AuthController.login);
+
 export const AuthRouter = { router };

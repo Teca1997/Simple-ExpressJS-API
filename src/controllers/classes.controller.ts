@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
+import { ClassService } from "../services/class.service";
 import { sportClassRepo } from "../db";
 
 const getfilteredClases = async (
@@ -30,7 +31,6 @@ const getfilteredClases = async (
 };
 
 const getClass = async (req: Request, res: Response, next: NextFunction) => {
-  console.log(req);
   const query = sportClassRepo
     .createQueryBuilder("sc")
     .select("sc.id", "id")
@@ -47,4 +47,29 @@ const getClass = async (req: Request, res: Response, next: NextFunction) => {
   return res.status(200).send(await query.execute());
 };
 
-export const APIControlller = { getfilteredClases, getClass };
+const enrollUserIntoClass = async (req: Request, res: Response) => {
+  const { userId, classId } = res.locals;
+  try {
+    await ClassService.enrollUserIntoClass(userId, classId);
+    res.status(200).send("Enrolled!");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+const unrollUserIntoClass = async (req: Request, res: Response) => {
+  const { userId, classId } = res.locals;
+  try {
+    await ClassService.unrollUserIntoClass(userId, classId);
+    res.status(200).send("Unrolled!");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+export const classesControlller = {
+  getfilteredClases,
+  getClass,
+  enrollUserIntoClass,
+  unrollUserIntoClass,
+};

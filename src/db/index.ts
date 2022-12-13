@@ -7,6 +7,12 @@ import { Sport } from "../models/Sport";
 import { SportClass } from "../models/SportClass";
 import { SportClassSeed } from "./seeds/SportClassSeed";
 import { SportSeed } from "./seeds/SportSeed";
+import { Token } from "../models/Token";
+import { TokenSeed } from "./seeds/TokenSeed";
+import { User } from "../models/User";
+import { UserSeed } from "./seeds/UserSeed";
+import { UserSportClass } from "../models/UserSportClass";
+import { UserSportClassSeed } from "./seeds/UserSportClassSeed";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -31,36 +37,51 @@ AppDataSource.initialize().then(async () => {
     .insert()
     .into(Role)
     .values(RoleSeed)
-    .returning("*")
     .execute();
 
   await AppDataSource.createQueryBuilder()
     .insert()
     .into(ClassType)
     .values(ClassTypeSeed)
-    .returning("*")
     .execute();
 
   await AppDataSource.createQueryBuilder()
     .insert()
     .into(Sport)
     .values(SportSeed)
-    .returning("*")
     .execute();
 
   await AppDataSource.createQueryBuilder()
     .insert()
     .into(SportClass)
     .values(SportClassSeed)
-    .returning("*")
+    .execute();
+
+  await AppDataSource.createQueryBuilder()
+    .insert()
+    .into(User)
+    .values(UserSeed)
+    .execute();
+
+  await AppDataSource.createQueryBuilder()
+    .insert()
+    .into(UserSportClass)
+    .values(UserSportClassSeed)
+    .execute();
+
+  await AppDataSource.createQueryBuilder()
+    .insert()
+    .into(Token)
+    .values(TokenSeed)
     .execute();
 });
 
 export const db = AppDataSource;
 export const queryBuilder = db.createQueryBuilder();
-export const roleRepo = db.getRepository("role");
-export const sportRepo = db.getRepository("sport");
-export const tokenRepo = db.getRepository("token");
-export const userRepo = db.getRepository("user");
-export const sportClassRepo = db.getRepository("sport_class");
-export const tokenType = db.getRepository("token_type");
+export const roleRepo = db.getRepository<Role>("role");
+export const sportRepo = db.getRepository<Sport>("sport");
+export const tokenRepo = db.getRepository<Token>("token");
+export const userRepo = db.getRepository<User>("user");
+export const sportClassRepo = db.getRepository<SportClass>("sport_class");
+export const userSportClassRepo =
+  db.getRepository<UserSportClass>("user_sport_class");
