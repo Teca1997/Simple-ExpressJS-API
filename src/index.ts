@@ -1,5 +1,6 @@
 import { AuthRouter } from "./routes/auth.route";
 import { ClassesRouter } from "./routes/class.route";
+import { UserRouter } from "./routes/user.route";
 import bodyParser from "body-parser";
 import express from "express";
 
@@ -11,5 +12,7 @@ app.use(bodyParser.urlencoded());
 app.use(AuthRouter.router);
 
 app.use(ClassesRouter.router);
+
+app.use(UserRouter.router);
 
 app.listen(port, () => console.log(`Server started on port ${port}`));

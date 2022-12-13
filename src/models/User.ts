@@ -7,7 +7,9 @@ import {
 } from "typeorm";
 
 import { BaseEntity } from "./BaseEntity";
+import { Comment } from "./Comment";
 import { Moment } from "moment";
+import { Rating } from "./Rating";
 import { Role } from "./Role";
 import { SportClass } from "./SportClass";
 import { Token } from "./Token";
@@ -43,6 +45,16 @@ export class User extends BaseEntity {
     nullable: false,
   })
   classes?: SportClass[];
+
+  @OneToMany(() => Rating, (rating) => rating.user, {
+    nullable: false,
+  })
+  ratings?: Rating[];
+
+  @OneToMany(() => Comment, (comment) => comment.user, {
+    nullable: false,
+  })
+  comments?: Rating[];
 
   static async isUsernameTaken(username: string): Promise<boolean> {
     return (await userRepo.findOne({ where: { username } })) == null

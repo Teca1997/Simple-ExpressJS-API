@@ -9,6 +9,8 @@ import {
 
 import { BaseEntity } from "./BaseEntity";
 import { ClassType } from "./ClassType";
+import { Comment } from "./Comment";
+import { Rating } from "./Rating";
 import { Sport } from "./Sport";
 import { User } from "./User";
 
@@ -41,4 +43,14 @@ export class SportClass extends BaseEntity {
     nullable: false,
   })
   users?: User[];
+
+  @OneToMany(() => Rating, (rating) => rating.sportClass, {
+    nullable: false,
+  })
+  ratings?: Rating[];
+
+  @OneToMany(() => Comment, (comment) => comment.sportClass, {
+    nullable: false,
+  })
+  comments?: Comment[];
 }

@@ -67,9 +67,19 @@ const unrollUserIntoClass = async (req: Request, res: Response) => {
   }
 };
 
+const rateSportClass = async (req: Request, res: Response) => {
+  res.status(400).send("Rate a class");
+};
+
+const commentSportClass = async (req: Request, res: Response) => {
+  res.status(400).send("Comment a class");
+};
+
 export const classesControlller = {
   getfilteredClases,
   getClass,
   enrollUserIntoClass,
   unrollUserIntoClass,
+  rateSportClass,
+  commentSportClass,
 };
