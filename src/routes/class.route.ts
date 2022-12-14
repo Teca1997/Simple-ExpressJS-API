@@ -1,6 +1,6 @@
 import { ClassesValidator } from "../validators/class.validator";
 import { authorize } from "../middlewares/auth";
-import { classesControlller } from "../controllers/classes.controller";
+import { classesControlller } from "../controllers/class.controller";
 import express from "express";
 import { validate } from "../middlewares/validate";
 

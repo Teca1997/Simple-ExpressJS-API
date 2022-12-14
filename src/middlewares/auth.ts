@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 export const authorize =
   (roles: number[]) =>
   async (req: Request, res: Response, next: NextFunction) => {
-    const { token, classId } = req.body;
+    const { token } = req.body;
     try {
       const payload: any = jwt.verify(token, getEnv("TOKEN_KEY"));
       console.log(payload);
@@ -15,7 +15,6 @@ export const authorize =
         const user = await UserService.getUserById(payload.userId);
         if (roles.includes(user.role!, 0)) {
           res.locals.userId = user.id;
-          res.locals.classId = classId;
           next();
         } else {
           next(

@@ -1,6 +1,8 @@
 import { ClassType } from "../models/ClassType";
 import { ClassTypeSeed } from "./seeds/ClassTypeSeed";
+import { Comment } from "../models/Comment";
 import { DataSource } from "typeorm";
+import { Rating } from "../models/Rating";
 import { Role } from "../models/Role";
 import { RoleSeed } from "./seeds/RoleSeed";
 import { Sport } from "../models/Sport";
@@ -85,3 +87,6 @@ export const userRepo = db.getRepository<User>("user");
 export const sportClassRepo = db.getRepository<SportClass>("sport_class");
 export const userSportClassRepo =
   db.getRepository<UserSportClass>("user_sport_class");
+
+export const commentRepo = db.getRepository<Comment>("comment");
+export const ratingRepo = db.getRepository<Rating>("rating");

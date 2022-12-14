@@ -37,11 +37,31 @@ const getUserById = async (userId: number): Promise<User> => {
   }
 };
 
-const canUserEnrollIntoClass = async (userId: number): Promise<boolean> => {
+const isUserEnrolledInClass = async (
+  userId: number,
+  classId: number
+): Promise<boolean> => {
+  if (
+    await userSportClassRepo.countBy({
+      user: userId,
+      sportClass: classId,
+    })
+  ) {
+    return true;
+  }
+  return false;
+};
+
+const isUserClassLimitReached = async (userId: number): Promise<boolean> => {
   if ((await userSportClassRepo.countBy({ user: userId })) < 2) {
     return true;
   }
   return false;
 };
 
-export const UserService = { addUser, getUserById, canUserEnrollIntoClass };
+export const UserService = {
+  addUser,
+  getUserById,
+  isUserClassLimitReached,
+  isUserEnrolledInClass,
+};
