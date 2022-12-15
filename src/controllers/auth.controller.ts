@@ -18,9 +18,10 @@ const register = async (req: Request, res: Response) => {
   }
 
   try {
-    let userId = await UserService.addUser(username, email, password);
+    const user = await UserService.addUser(username, email, password);
+    if (user.id === undefined) return;
     let emailVerificationToken =
-      await TokenService.generateEmailVerificationToken(userId!);
+      await TokenService.generateEmailVerificationToken(user.id);
     EmailService.sendEmail(
       req.body.email,
       "Email verification",
@@ -33,9 +34,7 @@ const register = async (req: Request, res: Response) => {
           Verification token: ${emailVerificationToken}`
     );
   } catch (error) {
-    return res
-      .status(500)
-      .send("Server error occured. Please check server console.");
+    return res.status(500).send(error.message);
   }
 };
 

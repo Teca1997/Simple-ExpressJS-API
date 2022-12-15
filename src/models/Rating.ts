@@ -8,7 +8,7 @@ import { UserSportClass } from "./UserSportClass";
 @Entity()
 export class Rating extends BaseEntity {
   @PrimaryColumn({ type: "int", name: "userId" })
-  @ManyToOne(() => User, (user) => user.ratings, { eager: true })
+  @ManyToOne(() => User, (user) => user.ratings)
   @JoinColumn()
   user?: User | number;
 

@@ -5,7 +5,66 @@ import {
   userSportClassRepo,
 } from "../db";
 
+import { Moment } from "moment";
+import { Rating } from "../models/Rating";
+import { SportClass } from "../models/SportClass";
 import { UserService } from "./user.service";
+
+const addClass = async (
+  sport: number,
+  classType: number,
+  timeOfClass: Moment,
+  weekScheadule: string[],
+  duration: Moment,
+  description: string
+): Promise<SportClass> => {
+  console.log("timeOfClass");
+  console.log(timeOfClass);
+  console.log("duration");
+  console.log(duration);
+
+  const newClassId = (
+    await sportClassRepo.insert({
+      sport,
+      classType,
+      timeOfClass,
+      weekScheadule,
+      duration,
+      description,
+    })
+  ).raw[0].id;
+  const newClass = await sportClassRepo.findOne({ where: { id: newClassId } });
+  if (!newClass) {
+    throw new Error("NEW CLASS NOT FOUND!!!");
+  }
+
+  return newClass;
+};
+
+const updateClass = async (
+  id: number,
+  sport: number,
+  classType: number,
+  timeOfClass: Moment,
+  weekScheadule: string[],
+  duration: Moment,
+  description: string
+): Promise<SportClass> => {
+  await sportClassRepo.update(
+    { id },
+    { sport, classType, timeOfClass, weekScheadule, duration, description }
+  );
+  const updatedClass = await sportClassRepo.findBy({ id });
+  if (updatedClass === null) {
+    throw new Error("Updated class could not be found!");
+  }
+  return updatedClass[0];
+};
+
+const deleteClass = async (classId: number) => {
+  await getClassById(classId);
+  await sportClassRepo.softDelete({ id: classId });
+};
 
 const enrollUserIntoClass = async (userId: number, classId: number) => {
   const sportClass = await sportClassRepo.findBy({ id: userId });
@@ -40,6 +99,15 @@ const unrollUserIntoClass = async (userId: number, classId: number) => {
     throw new Error(`User ${userId} is not enrolled in class ${classId}`);
   }
   return await userSportClassRepo.delete({ user: userId, sportClass: classId });
+};
+
+const getClassById = async (classId: number): Promise<SportClass> => {
+  const sportClass: any = sportClassRepo.findOneBy({ id: classId });
+  if (sportClass === undefined) {
+    throw new Error("No sport class found");
+  } else {
+    return sportClass;
+  }
 };
 
 const canClassBeEnrolledIn = async (classId: number): Promise<boolean> => {
@@ -94,10 +162,30 @@ const rateClass = async (userId: number, classId: number, rating: number) => {
   if (await UserService.isUserEnrolledInClass(userId, classId)) {
     throw new Error(`User ${userId} is not enrolled in class ${classId}`);
   }
-  ratingRepo.insert({ user: userId, sportClass: classId, rating: rating });
+  await ratingRepo.insert({
+    user: userId,
+    sportClass: classId,
+    rating: rating,
+  });
+  updateClassAvgerageRating(classId, rating);
+};
+
+const updateClassAvgerageRating = async (classId: number, rating: number) => {
+  const classRatings = await ratingRepo.find({
+    where: { sportClass: classId },
+  });
+  const ratings = classRatings.map((rating: Rating) => {
+    return rating.rating;
+  });
+  const avgRating: number =
+    ratings.reduce((prev: number, curr: number) => {
+      return prev + curr;
+    }) / ratings.length;
+  await sportClassRepo.update({ id: classId }, { averageRating: avgRating });
 };
 
 export const ClassService = {
+  addClass,
   enrollUserIntoClass,
   unrollUserIntoClass,
   canClassBeEnrolledIn,
@@ -105,4 +193,6 @@ export const ClassService = {
   hasUserLeftARatingOnClass,
   commentClass,
   rateClass,
+  updateClass,
+  deleteClass,
 };

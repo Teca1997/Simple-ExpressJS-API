@@ -21,11 +21,17 @@ const getfilteredClases = async (
     .leftJoin("sc.classType", "class_type");
 
   if (req.body.sports) {
-    query.orWhere("sport.name IN (:...sports)", { sports: req.body.sports });
+    const sports = req.body.sports.split(",");
+    query.orWhere("sport.name IN (:...sports)", {
+      sports: sports,
+    });
   }
 
   if (req.body.age) {
-    query.orWhere("class_type.name LIKE :name", { name: req.body.age });
+    const ageGroups = req.body.age.split(",");
+    query.orWhere("class_type.name IN (:...ageGroups)", {
+      ageGroups: ageGroups,
+    });
   }
   return res.status(200).send(await query.execute());
 };

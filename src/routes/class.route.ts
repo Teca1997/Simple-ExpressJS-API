@@ -8,14 +8,7 @@ const router = express.Router();
 
 //post
 router
-  .route("/classes")
-  .post(
-    validate(ClassesValidator.getfilteredClases),
-    classesControlller.getfilteredClases
-  );
-
-router
-  .route("/classes/enroll")
+  .route("/class/enroll")
   .post(
     authorize([2, 3]),
     validate(ClassesValidator.enrollUserIntoClass),
@@ -23,7 +16,7 @@ router
   );
 
 router
-  .route("/classes/unroll")
+  .route("/class/unroll")
   .post(
     authorize([2, 3]),
     validate(ClassesValidator.unrollUserIntoClass),
@@ -31,7 +24,7 @@ router
   );
 
 router
-  .route("/classes/rate")
+  .route("/class/rate")
   .post(
     authorize([2, 3]),
     validate(ClassesValidator.rateSportClass),
@@ -39,7 +32,7 @@ router
   );
 
 router
-  .route("/classes/comment")
+  .route("/class/comment")
   .post(
     authorize([2, 3]),
     validate(ClassesValidator.commentSportClass),
@@ -47,6 +40,8 @@ router
   );
 
 //get
-router.route("/classes/:classId").get(classesControlller.getClass);
+router.route("/class/:classId").get(classesControlller.getClass);
+
+router.route("/class").get(classesControlller.getfilteredClases);
 
 export const ClassesRouter = { router };

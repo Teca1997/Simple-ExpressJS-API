@@ -10,7 +10,6 @@ export const authorize =
     const { token } = req.body;
     try {
       const payload: any = jwt.verify(token, getEnv("TOKEN_KEY"));
-      console.log(payload);
       try {
         const user = await UserService.getUserById(payload.userId);
         if (roles.includes(user.role!, 0)) {

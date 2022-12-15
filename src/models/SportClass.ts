@@ -39,6 +39,9 @@ export class SportClass extends BaseEntity {
   @Column({ type: "text", array: true })
   weekScheadule: string[];
 
+  @Column({ type: "float", default: 0 })
+  averageRating?: number;
+
   @OneToMany(() => User, (user) => user.classes, {
     nullable: false,
   })

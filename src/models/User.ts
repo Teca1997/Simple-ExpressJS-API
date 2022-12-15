@@ -35,7 +35,7 @@ export class User extends BaseEntity {
   verifiedDate?: Moment;
 
   @Column({ type: "number", name: "roleId", default: 1 })
-  @ManyToOne(() => Role, (role) => role.users, { nullable: false })
+  @ManyToOne(() => Role, (role) => role.users, { nullable: false, eager: true })
   role?: number;
 
   @OneToMany(() => Token, (token) => token.user, { nullable: false })

@@ -3,6 +3,7 @@ import { ClassTypeSeed } from "./seeds/ClassTypeSeed";
 import { Comment } from "../models/Comment";
 import { DataSource } from "typeorm";
 import { Rating } from "../models/Rating";
+import { RatingSeed } from "./seeds/RatingSeed";
 import { Role } from "../models/Role";
 import { RoleSeed } from "./seeds/RoleSeed";
 import { Sport } from "../models/Sport";
@@ -75,6 +76,12 @@ AppDataSource.initialize().then(async () => {
     .insert()
     .into(Token)
     .values(TokenSeed)
+    .execute();
+
+  await AppDataSource.createQueryBuilder()
+    .insert()
+    .into(Rating)
+    .values(RatingSeed)
     .execute();
 });
 

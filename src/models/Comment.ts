@@ -7,7 +7,7 @@ import { User } from "./User";
 @Entity()
 export class Comment extends BaseEntity {
   @PrimaryColumn({ type: "int", name: "userId" })
-  @ManyToOne(() => User, (user) => user.comments, { eager: true })
+  @ManyToOne(() => User, (user) => user.comments)
   @JoinColumn()
   user!: User | number;
 

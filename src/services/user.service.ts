@@ -5,27 +5,59 @@ import bcrypt from "bcryptjs";
 
 const addUser = async (
   username: string,
+  email: string,
   password: string,
-  email: string
-): Promise<number | undefined> => {
+  role = 1
+): Promise<User> => {
   try {
     password = await bcrypt.hash(password, 12);
   } catch (error) {
     console.log("Error hashing password: " + error);
+    throw new Error("Server error occured.");
   }
+  if (await User.isEmailTaken(email)) {
+    throw new Error("Email already taken!");
+  }
+  if (await User.isUsernameTaken(username)) {
+    throw new Error("Username already taken!");
+  }
+  const insertResult = await queryBuilder
+    .insert()
+    .into(User)
+    .values({ username, password, email, role })
+    .returning("*")
+    .execute();
+  if (insertResult.raw[0] === undefined) {
+    throw new Error("Error inserting new user!");
+  }
+  return insertResult.raw[0];
+};
 
-  try {
-    const insertResult = await queryBuilder
-      .insert()
-      .into(User)
-      .values({ username, password, email })
-      .returning("id")
-      .execute();
-    return insertResult.raw[0].id;
-  } catch (error) {
-    console.log("Error inserting new user: " + error);
+const updateUser = async (
+  userId: number,
+  username: string | undefined,
+  email: string | undefined,
+  password: string | undefined,
+  roleId: number | undefined
+): Promise<User> => {
+  if (password) {
+    try {
+      password = await bcrypt.hash(password, 12);
+    } catch (error) {
+      console.log("Error hashing password: " + error);
+      throw new Error("Server error occured.");
+    }
   }
-  return;
+  await userRepo.update(
+    { id: userId },
+    { username, password, email, role: roleId }
+  );
+  const user = (await userRepo.findBy({ id: userId }))[0];
+  console.log("username " + username);
+  console.log("password " + password);
+  console.log("email " + email);
+  console.log("role " + roleId);
+  return user;
 };
 
 const getUserById = async (userId: number): Promise<User> => {
@@ -35,6 +67,11 @@ const getUserById = async (userId: number): Promise<User> => {
   } else {
     return user;
   }
+};
+
+const deleteUser = async (userId: number) => {
+  await getUserById(userId);
+  await userRepo.softDelete({ id: userId });
 };
 
 const isUserEnrolledInClass = async (
@@ -64,4 +101,6 @@ export const UserService = {
   getUserById,
   isUserClassLimitReached,
   isUserEnrolledInClass,
+  updateUser,
+  deleteUser,
 };
