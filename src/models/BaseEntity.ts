@@ -1,12 +1,12 @@
-import { CreateDateColumn, DeleteDateColumn, UpdateDateColumn } from "typeorm";
+import { CreateDateColumn, DeleteDateColumn, UpdateDateColumn } from 'typeorm';
 
 export class BaseEntity {
-  @CreateDateColumn({ type: "timestamptz" })
-  dateCreated?: Date;
+	@CreateDateColumn({ type: 'timestamptz' })
+	dateCreated?: Date;
 
-  @DeleteDateColumn({ type: "timestamptz" })
-  dateDeleted?: Date;
+	@DeleteDateColumn({ type: 'timestamptz' })
+	dateDeleted?: Date;
 
-  @UpdateDateColumn({ type: "timestamptz" })
-  dateUpdated?: Date;
+	@UpdateDateColumn({ type: 'timestamptz' })
+	dateUpdated?: Date;
 }
