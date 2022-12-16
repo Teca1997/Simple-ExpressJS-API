@@ -6,21 +6,26 @@ services:
       - postgres
     ports:
       - "5000:5000"
+
+    volumes:
+      - ./:/usr/api/
+      - /usr/api/node_modules
+
     expose:
       - 5000
-    volumes:
-      - ./:/usr/app/
-      - /usr/app/node_modules
+
+    command: npx ts-node ./src/index.ts
+
     environment:
       - DB_USERNAME=${DB_USERNAME}
-      - DB_HOST=postgres
+      - DB_HOST=postgres #has to be like that, if you change this you also need to change name of database service on line 31 from postgres to what ever you put here
       - DB_DATABASE=${DB_DATABASE}
       - DB_PASSWORD=${DB_PASSWORD}
-      - DB_SCHEMA=${DB_SCHEMA}
       - DB_PORT=${DB_PORT}
       - DB_LOGGING=${DB_LOGGING}
       - DB_SYNCHRONISE=${DB_SYNCHRONISE}
-      - DB_DROPDB=${DB_DROPDB}
+      - DB_DROP_TABLES_ON_SYNC=${DB_DROP_TABLES_ON_SYNC}
+      - DB_SEED=${DB_SEED}
       - DB_TYPE=${DB_TYPE}
       - API_PORT=${API_PORT}
       - TOKEN_KEY=${TOKEN_KEY}
@@ -29,7 +34,7 @@ services:
       - MAIL_SERVICE_PASSWORD=${MAIL_SERVICE_PASSWORD}
 
   postgres:
-    image: postgres:latest
+    image: postgres:15
     restart: always
     environment:
       - POSTGRES_USER=${DB_USERNAME}

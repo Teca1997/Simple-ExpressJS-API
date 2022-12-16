@@ -13,8 +13,8 @@ export const authorize =
 			console.log(payload); */
 			try {
 				const user = await UserService.getUserById(payload.userId);
-				console.log('user!');
-				console.log(user.role);
+				/* console.log('user!');
+				console.log(user.role); */
 				const role: any = user!.role!;
 				if (roles.includes(role.id, 0)) {
 					res.locals.userId = user.id;

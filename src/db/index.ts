@@ -42,8 +42,12 @@ const init = async (connectionRetries = maxConnectionTries) => {
 		try {
 			await AppDataSource.initialize();
 			console.log('Database initialized!');
-			await seedDatabase();
-			console.log('Database synced and seeded');
+			if (process.env.DB_SYNCHRONISE === 'true' ? true : false) {
+				await syncDatabase();
+			}
+			if (process.env.DB_SEED === 'true' ? true : false) {
+				await seedDatabase();
+			}
 			return;
 		} catch (error) {
 			connectionRetries -= 1;
@@ -65,9 +69,19 @@ const init = async (connectionRetries = maxConnectionTries) => {
 	return;
 };
 
-const seedDatabase = async () => {
-	await AppDataSource.synchronize(true);
+const syncDatabase = async (): Promise<void> => {
+	console.log('Database sync started.');
+	await AppDataSource.synchronize(process.env.DB_DROP_TABLES_ON_SYNC === 'true' ? true : false);
+	console.log(
+		process.env.DB_DROP_TABLES_ON_SYNC === 'true'
+			? 'Tables dropped and database synced'
+			: 'Database synced'
+	);
+	return;
+};
 
+const seedDatabase = async (): Promise<void> => {
+	console.log('Database seeding started.');
 	await AppDataSource.createQueryBuilder().insert().into(Role).values(RoleSeed).execute();
 
 	await AppDataSource.createQueryBuilder()
@@ -95,12 +109,11 @@ const seedDatabase = async () => {
 	await AppDataSource.createQueryBuilder().insert().into(Token).values(TokenSeed).execute();
 
 	await AppDataSource.createQueryBuilder().insert().into(Rating).values(RatingSeed).execute();
-	console.log('Database synched and seeded.');
-
+	console.log('Database seeded');
 	return;
 };
 
-export const db = { init, seedDatabase };
+export const db = { init };
 export const queryBuilder = AppDataSource.createQueryBuilder();
 export const roleRepo = AppDataSource.getRepository<Role>('role');
 export const sportRepo = AppDataSource.getRepository<Sport>('sport');
