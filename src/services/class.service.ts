@@ -13,11 +13,6 @@ const addClass = async (
 	duration: Moment,
 	description: string
 ): Promise<SportClass> => {
-	console.log('timeOfClass');
-	console.log(timeOfClass);
-	console.log('duration');
-	console.log(duration);
-
 	const newClassId = (
 		await sportClassRepo.insert({
 			sport,
@@ -105,7 +100,6 @@ const canClassBeEnrolledIn = async (classId: number): Promise<boolean> => {
 	const classUserCount = await userSportClassRepo.countBy({
 		sportClass: classId
 	});
-	console.log(classUserCount);
 	if (classUserCount < 10) {
 		return true;
 	}

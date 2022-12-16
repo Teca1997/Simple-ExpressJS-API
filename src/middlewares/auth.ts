@@ -9,16 +9,21 @@ export const authorize =
 		const { token } = req.body;
 		try {
 			const payload: any = jwt.verify(token, getEnv('TOKEN_KEY'));
+			console.log('payload');
+			console.log(payload);
 			try {
 				const user = await UserService.getUserById(payload.userId);
-				if (roles.includes(user.role!, 0)) {
+				console.log('user!');
+				console.log(user.role);
+				const role: any = user!.role!;
+				if (roles.includes(role.id, 0)) {
 					res.locals.userId = user.id;
 					next();
 				} else {
 					next(res.status(400).send('User does have authorization to do that!'));
 				}
 			} catch (error) {
-				res.status(400).send(error);
+				res.status(400).send(error.message);
 			}
 		} catch (error) {
 			next(res.status(400).send('Bad token!!!'));

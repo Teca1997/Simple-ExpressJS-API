@@ -30,7 +30,7 @@ export class User extends BaseEntity {
 
 	@Column({ type: 'number', name: 'roleId', default: 1 })
 	@ManyToOne(() => Role, (role) => role.users, { nullable: false, eager: true })
-	role?: number;
+	role?: Role | number;
 
 	@OneToMany(() => Token, (token) => token.user, { nullable: false })
 	tokens?: Token[];

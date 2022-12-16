@@ -23,7 +23,7 @@ const verifyEmail = async (token: string): Promise<User> => {
 	user.verifiedDate = moment();
 	user.role = 2;
 	await tokenRepo.delete({ user: user.id });
-	console.log(await userRepo.save(user));
+	await userRepo.save(user);
 	return user;
 };
 

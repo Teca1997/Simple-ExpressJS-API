@@ -37,7 +37,6 @@ const generateAuthenticationTokens = async (user: User): Promise<AuthTokens> => 
 
 const verifyEmailToken = async (token: string): Promise<EmailVerificationToken> => {
 	const payload = jwt.verify(token, getEnv('TOKEN_KEY'));
-	console.log(payload);
 	const dbToken = await tokenRepo.findOne({ where: { token } });
 	if (!dbToken) {
 		throw new Error('Token not found');

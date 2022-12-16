@@ -50,20 +50,15 @@ const updateUser = async (
 	}
 	await userRepo.update({ id: userId }, { username, password, email, role: roleId });
 	const user = (await userRepo.findBy({ id: userId }))[0];
-	console.log('username ' + username);
-	console.log('password ' + password);
-	console.log('email ' + email);
-	console.log('role ' + roleId);
 	return user;
 };
 
 const getUserById = async (userId: number): Promise<User> => {
 	const user: any = userRepo.findOneBy({ id: userId });
-	if (!user) {
+	if (user == null) {
 		throw new Error('No user found');
-	} else {
-		return user;
 	}
+	return user;
 };
 
 const deleteUser = async (userId: number) => {
