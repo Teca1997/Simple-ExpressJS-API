@@ -13,9 +13,9 @@ const createUser = async (req: Request, res: Response) => {
 	try {
 		const { username, password, email, role } = req.body;
 		const newUser = await UserService.addUser(username, password, email, role);
-		res.status(200).send(newUser);
+		res.status(200).send({ user: newUser, messages: ['User created succesfully'] });
 	} catch (error) {
-		res.status(400).send(error.message);
+		res.status(400).send({ errors: [error.message] });
 	}
 };
 
@@ -23,9 +23,9 @@ const updateUser = async (req: Request, res: Response) => {
 	try {
 		const { userId, username, email, password, roleId } = req.body;
 		const updatedUser = await UserService.updateUser(userId, username, email, password, roleId);
-		res.status(200).send(updatedUser);
+		res.status(200).send({ user: updatedUser, messages: ['User updated succesfully'] });
 	} catch (error) {
-		res.status(400).send(error.message);
+		res.status(400).send({ errors: [error.message] });
 	}
 };
 
@@ -33,9 +33,9 @@ const deleteUser = async (req: Request, res: Response) => {
 	try {
 		const { userId } = req.body;
 		await UserService.deleteUser(userId);
-		res.status(400).send('User deleted!');
+		res.status(400).send({ messages: ['User deleted succesfully'] });
 	} catch (error) {
-		res.status(400).send(error.message);
+		res.status(400).send({ errors: [error.message] });
 	}
 };
 
@@ -55,9 +55,9 @@ const createClass = async (req: Request, res: Response) => {
 			duration,
 			description
 		);
-		res.status(200).send(newClass);
+		res.status(200).send({ cllass: newClass, messages: ['Class created succesfully'] });
 	} catch (error) {
-		res.status(400).send(error.message);
+		res.status(400).send({ errors: [error.message] });
 	}
 };
 
@@ -65,7 +65,7 @@ const updateClass = async (req: Request, res: Response) => {
 	try {
 		const { classId, sport, classType, timeOfClass, weekScheadule, duration, description } =
 			req.body;
-		const newClass = await ClassService.updateClass(
+		const updatedClass = await ClassService.updateClass(
 			classId,
 			sport,
 			classType,
@@ -74,9 +74,9 @@ const updateClass = async (req: Request, res: Response) => {
 			duration,
 			description
 		);
-		res.status(200).send(newClass);
+		res.status(200).send({ class: updatedClass, messages: ['Class updated succesfully'] });
 	} catch (error) {
-		res.status(400).send(error.message);
+		res.status(400).send({ errors: [error.message] });
 	}
 };
 
@@ -84,9 +84,9 @@ const deleteClass = async (req: Request, res: Response) => {
 	try {
 		const { classId } = req.body;
 		await ClassService.deleteClass(classId);
-		res.status(400).send('Class deleted!');
+		res.status(400).send({ messages: ['Class deleted succesfully'] });
 	} catch (error) {
-		res.status(400).send(error.message);
+		res.status(400).send({ errors: [error.message] });
 	}
 };
 

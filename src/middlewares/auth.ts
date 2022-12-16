@@ -9,8 +9,8 @@ export const authorize =
 		const { token } = req.body;
 		try {
 			const payload: any = jwt.verify(token, getEnv('TOKEN_KEY'));
-			console.log('payload');
-			console.log(payload);
+			/* console.log('payload');
+			console.log(payload); */
 			try {
 				const user = await UserService.getUserById(payload.userId);
 				console.log('user!');
@@ -20,12 +20,16 @@ export const authorize =
 					res.locals.userId = user.id;
 					next();
 				} else {
-					next(res.status(400).send('User does have authorization to do that!'));
+					next(
+						res
+							.status(400)
+							.send({ errors: ['User does have authorization to do that!'] })
+					);
 				}
 			} catch (error) {
-				res.status(400).send(error.message);
+				res.status(400).send({ errors: [error.message] });
 			}
 		} catch (error) {
-			next(res.status(400).send('Bad token!!!'));
+			next(res.status(400).send({ errors: ['Bad token!!!'] }));
 		}
 	};
