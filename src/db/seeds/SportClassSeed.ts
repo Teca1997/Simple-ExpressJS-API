@@ -32,5 +32,69 @@ export const SportClassSeed: SportClass[] = [
 		weekScheadule: ['Monday'],
 		duration: new Date(new Date().setHours(1, 30, 0)),
 		description: 'class 4 description'
+	},
+	{
+		sport: 5,
+		classType: 1,
+		timeOfClass: new Date(new Date().setHours(12, 30, 0)),
+		weekScheadule: ['Monday'],
+		duration: new Date(new Date().setHours(1, 30, 0)),
+		description: 'class 4 description'
+	},
+	{
+		sport: 6,
+		classType: 2,
+		timeOfClass: new Date(new Date().setHours(12, 30, 0)),
+		weekScheadule: ['Monday'],
+		duration: new Date(new Date().setHours(1, 30, 0)),
+		description: 'class 4 description'
+	},
+	{
+		sport: 7,
+		classType: 3,
+		timeOfClass: new Date(new Date().setHours(12, 30, 0)),
+		weekScheadule: ['Monday'],
+		duration: new Date(new Date().setHours(1, 30, 0)),
+		description: 'class 4 description'
+	},
+	{
+		sport: 8,
+		classType: 4,
+		timeOfClass: new Date(new Date().setHours(12, 30, 0)),
+		weekScheadule: ['Monday'],
+		duration: new Date(new Date().setHours(1, 30, 0)),
+		description: 'class 4 description'
+	},
+	{
+		sport: 9,
+		classType: 1,
+		timeOfClass: new Date(new Date().setHours(12, 30, 0)),
+		weekScheadule: ['Monday'],
+		duration: new Date(new Date().setHours(1, 30, 0)),
+		description: 'class 4 description'
+	},
+	{
+		sport: 10,
+		classType: 2,
+		timeOfClass: new Date(new Date().setHours(12, 30, 0)),
+		weekScheadule: ['Monday'],
+		duration: new Date(new Date().setHours(1, 30, 0)),
+		description: 'class 4 description'
+	},
+	{
+		sport: 11,
+		classType: 3,
+		timeOfClass: new Date(new Date().setHours(12, 30, 0)),
+		weekScheadule: ['Monday'],
+		duration: new Date(new Date().setHours(1, 30, 0)),
+		description: 'class 4 description'
+	},
+	{
+		sport: 12,
+		classType: 4,
+		timeOfClass: new Date(new Date().setHours(12, 30, 0)),
+		weekScheadule: ['Monday'],
+		duration: new Date(new Date().setHours(1, 30, 0)),
+		description: 'class 4 description'
 	}
 ];

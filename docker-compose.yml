@@ -21,7 +21,7 @@ services:
       - DB_HOST=postgres #has to be like that, if you change this you also need to change name of database service on line 31 from postgres to what ever you put here
       - DB_DATABASE=${DB_DATABASE}
       - DB_PASSWORD=${DB_PASSWORD}
-      - DB_PORT=${DB_PORT}
+      - DB_PORT=5432
       - DB_LOGGING=${DB_LOGGING}
       - DB_SYNCHRONISE=${DB_SYNCHRONISE}
       - DB_DROP_TABLES_ON_SYNC=${DB_DROP_TABLES_ON_SYNC}

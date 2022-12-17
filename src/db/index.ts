@@ -30,7 +30,7 @@ const AppDataSource = new DataSource({
 	entities: ['./src/models/*.ts'],
 	migrations: [],
 	poolSize: 15,
-	logging: process.env.DB_LOGGING === 'true' ? true : false
+	logging: process.env.DB_LOGGING === 'true'
 });
 
 const maxConnectionTries = 5;
@@ -42,10 +42,10 @@ const init = async (connectionRetries = maxConnectionTries) => {
 		try {
 			await AppDataSource.initialize();
 			console.log('Database initialized!');
-			if (process.env.DB_SYNCHRONISE === 'true' ? true : false) {
+			if (process.env.DB_SYNCHRONISE === 'true') {
 				await syncDatabase();
 			}
-			if (process.env.DB_SEED === 'true' ? true : false) {
+			if (process.env.DB_SEED === 'true') {
 				await seedDatabase();
 			}
 			return;
@@ -71,7 +71,7 @@ const init = async (connectionRetries = maxConnectionTries) => {
 
 const syncDatabase = async (): Promise<void> => {
 	console.log('Database sync started.');
-	await AppDataSource.synchronize(process.env.DB_DROP_TABLES_ON_SYNC === 'true' ? true : false);
+	await AppDataSource.synchronize(process.env.DB_DROP_TABLES_ON_SYNC === 'true');
 	console.log(
 		process.env.DB_DROP_TABLES_ON_SYNC === 'true'
 			? 'Tables dropped and database synced'

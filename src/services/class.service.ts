@@ -57,8 +57,9 @@ const deleteClass = async (classId: number) => {
 };
 
 const enrollUserIntoClass = async (userId: number, classId: number) => {
-	const sportClass = await sportClassRepo.findBy({ id: userId });
-	if (!sportClass) {
+	const sportClass = await sportClassRepo.findBy({ id: classId });
+	console.log(sportClass);
+	if (!sportClass.length) {
 		throw new Error(`Class ${classId} does not exist!`);
 	}
 	if (!(await canClassBeEnrolledIn(classId))) {
@@ -77,9 +78,9 @@ const enrollUserIntoClass = async (userId: number, classId: number) => {
 };
 
 const unrollUserIntoClass = async (userId: number, classId: number) => {
-	const sportClass = await sportClassRepo.findBy({ id: userId });
-	if (!sportClass) {
-		throw new Error('Class does not exist!');
+	const sportClass = await sportClassRepo.findBy({ id: classId });
+	if (!sportClass.length) {
+		throw new Error(`Class ${classId} does not exist!`);
 	}
 	if (!(await UserService.isUserEnrolledInClass(userId, classId))) {
 		throw new Error(`User ${userId} is not enrolled in class ${classId}`);
@@ -89,7 +90,7 @@ const unrollUserIntoClass = async (userId: number, classId: number) => {
 
 const getClassById = async (classId: number): Promise<SportClass> => {
 	const sportClass: any = sportClassRepo.findOneBy({ id: classId });
-	if (sportClass === undefined) {
+	if (sportClass === null) {
 		throw new Error('No sport class found');
 	} else {
 		return sportClass;
@@ -121,6 +122,11 @@ const hasUserLeftARatingOnClass = async (userId: number, classId: number): Promi
 };
 
 const commentClass = async (userId: number, classId: number, comment: string) => {
+	const sportClass = await sportClassRepo.findBy({ id: classId });
+	console.log(sportClass);
+	if (!sportClass.length) {
+		throw new Error(`Class ${classId} does not exist!`);
+	}
 	if (await hasUserLeftACommentOnClass(userId, classId)) {
 		throw new Error('User already left a comment on this class');
 	}
@@ -131,6 +137,11 @@ const commentClass = async (userId: number, classId: number, comment: string) =>
 };
 
 const rateClass = async (userId: number, classId: number, rating: number) => {
+	const sportClass = await sportClassRepo.findBy({ id: classId });
+	console.log(sportClass);
+	if (!sportClass.length) {
+		throw new Error(`Class ${classId} does not exist!`);
+	}
 	if (await hasUserLeftARatingOnClass(userId, classId)) {
 		throw new Error('User already left a rating on this class');
 	}

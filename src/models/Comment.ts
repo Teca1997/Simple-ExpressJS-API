@@ -13,9 +13,7 @@ export class Comment extends BaseEntity {
 
 	@PrimaryColumn({ type: 'int', name: 'sportClassId' })
 	@JoinColumn()
-	@ManyToOne(() => SportClass, (sportClass) => sportClass.comments, {
-		eager: true
-	})
+	@ManyToOne(() => SportClass, (sportClass) => sportClass.comments)
 	@JoinColumn()
 	sportClass!: SportClass | number;
 

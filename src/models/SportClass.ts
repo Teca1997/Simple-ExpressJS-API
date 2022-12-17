@@ -46,7 +46,8 @@ export class SportClass extends BaseEntity {
 	ratings?: Rating[];
 
 	@OneToMany(() => Comment, (comment) => comment.sportClass, {
-		nullable: false
+		nullable: false,
+		eager: true
 	})
 	comments?: Comment[];
 }

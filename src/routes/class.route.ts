@@ -1,4 +1,4 @@
-import { ClassesValidator } from '../validators/class.validator';
+import { ClassValidator } from '../validators/class.validator';
 import { authorize } from '../middlewares/auth';
 import { classesControlller } from '../controllers/class.controller';
 import express from 'express';
@@ -11,15 +11,15 @@ router
 	.route('/class/enroll')
 	.post(
 		authorize([2, 3]),
-		validate(ClassesValidator.enrollUserIntoClass),
+		validate(ClassValidator.enrollUserIntoClass),
 		classesControlller.enrollUserIntoClass
 	);
 
 router
 	.route('/class/unroll')
-	.post(
+	.delete(
 		authorize([2, 3]),
-		validate(ClassesValidator.unrollUserIntoClass),
+		validate(ClassValidator.unrollUserIntoClass),
 		classesControlller.unrollUserIntoClass
 	);
 
@@ -27,7 +27,7 @@ router
 	.route('/class/rate')
 	.post(
 		authorize([2, 3]),
-		validate(ClassesValidator.rateSportClass),
+		validate(ClassValidator.rateSportClass),
 		classesControlller.rateSportClass
 	);
 
@@ -35,7 +35,7 @@ router
 	.route('/class/comment')
 	.post(
 		authorize([2, 3]),
-		validate(ClassesValidator.commentSportClass),
+		validate(ClassValidator.commentSportClass),
 		classesControlller.commentSportClass
 	);
 

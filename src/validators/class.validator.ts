@@ -6,25 +6,22 @@ const getfilteredClases = joi.object({
 });
 
 const enrollUserIntoClass = joi.object({
-	token: joi.string().required(),
 	classId: joi.number().required().integer()
 });
 
 const unrollUserIntoClass = enrollUserIntoClass;
 
 const commentSportClass = joi.object({
-	token: joi.string().required(),
 	classId: joi.number().required().integer(),
 	comment: joi.string().required()
 });
 
 const rateSportClass = joi.object({
-	token: joi.string().required(),
 	classId: joi.number().integer().required(),
 	rating: joi.number().integer().min(0).max(5).required()
 });
 
-export const ClassesValidator = {
+export const ClassValidator = {
 	getfilteredClases,
 	enrollUserIntoClass,
 	unrollUserIntoClass,

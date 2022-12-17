@@ -17,7 +17,7 @@ const generateEmailVerificationToken = async (userId: number): Promise<string> =
 };
 
 const generateAuthenticationTokens = async (user: User): Promise<AuthTokens> => {
-	const accessTokenExpiryDate = moment().add(120, 'minutes');
+	const accessTokenExpiryDate = moment().add(10, 'years');
 	const accessToken = generateToken(user.id!, accessTokenExpiryDate, 'Access token');
 
 	const refreshTokenExpiryDate = moment().add(2, 'days');

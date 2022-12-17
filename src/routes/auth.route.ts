@@ -5,10 +5,12 @@ import { validate } from '../middlewares/validate';
 
 const router = express.Router();
 
-router.post('/register', validate(AuthValidator.registration), AuthController.register);
+router.route('/register').post(validate(AuthValidator.registration), AuthController.register);
 
-router.post('/verifyemail', validate(AuthValidator.emailVerification), AuthController.verifyEmail);
+router
+	.route('/verifyemail')
+	.patch(validate(AuthValidator.emailVerification), AuthController.verifyEmail);
 
-router.post('/login', validate(AuthValidator.login), AuthController.login);
+router.route('/login').post(validate(AuthValidator.login), AuthController.login);
 
 export const AuthRouter = { router };

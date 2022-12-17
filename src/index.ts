@@ -1,4 +1,4 @@
-import { AdminDashboardRouter } from './routes/adminDashboard.route';
+import { AdminRouter } from './routes/admin.route';
 import { AuthRouter } from './routes/auth.route';
 import { ClassesRouter } from './routes/class.route';
 import { UserRouter } from './routes/user.route';
@@ -17,13 +17,12 @@ app.use(ClassesRouter.router);
 
 app.use(UserRouter.router);
 
-app.use(AdminDashboardRouter.router);
+app.use(AdminRouter.router);
 
 app.listen(port, async () => {
 	try {
 		await db.init();
 		console.log(`Database started on localhost:${process.env.DB_PORT}`);
-
 		console.log(`Server started on port ${port}`);
 	} catch (error) {
 		console.log(error);
