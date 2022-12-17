@@ -75,6 +75,8 @@ const updateClass = async (req: Request, res: Response) => {
 	try {
 		const { classId, sport, classType, timeOfClass, weekScheadule, duration, description } =
 			req.body;
+		await ClassService.getClassById(classId);
+		await ClassService.getSportById(sport);
 		const updatedClass = await ClassService.updateClass(
 			classId,
 			sport,

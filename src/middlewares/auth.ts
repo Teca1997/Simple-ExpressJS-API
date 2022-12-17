@@ -8,6 +8,14 @@ import jwt from 'jsonwebtoken';
 export const authorize =
 	(roles: number[]) => async (req: Request, res: Response, next: NextFunction) => {
 		const { authorization } = req.headers;
+		if (authorization === undefined) {
+			next(
+				res
+					.status(StatusCodes.UNAUTHORIZED)
+					.send({ errors: ['User does have authorization to do that!'] })
+			);
+			return;
+		}
 		if (authorization!.startsWith('Bearer ')) {
 			const token = authorization!.substring(7, authorization!.length);
 			try {
@@ -24,14 +32,16 @@ export const authorize =
 								.status(StatusCodes.UNAUTHORIZED)
 								.send({ errors: ['User does have authorization to do that!'] })
 						);
+						return;
 					}
 				} catch (error) {
-					res.status(StatusCodes.NOT_FOUND).send({ errors: [error.message] });
+					next(res.status(StatusCodes.NOT_FOUND).send({ errors: [error.message] }));
 				}
 			} catch (error) {
 				next(res.status(StatusCodes.BAD_REQUEST).send({ errors: ['Bad token!!!'] }));
 			}
 		} else {
 			next(res.status(StatusCodes.BAD_REQUEST).send({ errors: ['Bad token!!!'] }));
+			return;
 		}
 	};

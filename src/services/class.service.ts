@@ -1,4 +1,4 @@
-import { commentRepo, ratingRepo, sportClassRepo, userSportClassRepo } from '../db';
+import { commentRepo, ratingRepo, sportClassRepo, sportRepo, userSportClassRepo } from '../db';
 
 import { Moment } from 'moment';
 import { Rating } from '../models/Rating';
@@ -89,11 +89,20 @@ const unrollUserIntoClass = async (userId: number, classId: number) => {
 };
 
 const getClassById = async (classId: number): Promise<SportClass> => {
-	const sportClass: any = sportClassRepo.findOneBy({ id: classId });
+	const sportClass: any = await sportClassRepo.findOneBy({ id: classId });
 	if (sportClass === null) {
 		throw new Error('No sport class found');
 	} else {
 		return sportClass;
+	}
+};
+
+const getSportById = async (sportId: number): Promise<SportClass> => {
+	const sport: any = await sportRepo.findOneBy({ id: sportId });
+	if (sport === null) {
+		throw new Error('No sport found');
+	} else {
+		return sport;
 	}
 };
 
@@ -180,5 +189,7 @@ export const ClassService = {
 	commentClass,
 	rateClass,
 	updateClass,
-	deleteClass
+	deleteClass,
+	getClassById,
+	getSportById
 };
