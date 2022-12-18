@@ -41,8 +41,8 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_DATABASE}
     ports:
-      - "5432:5432"
+      - "10000:5432"
     expose:
-      - 5432
+      - 10000
 
  

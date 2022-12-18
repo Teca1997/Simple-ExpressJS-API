@@ -1,7 +1,6 @@
 import { AdminRouter } from './routes/admin.route';
 import { AuthRouter } from './routes/auth.route';
 import { ClassesRouter } from './routes/class.route';
-import { UserRouter } from './routes/user.route';
 import bodyParser from 'body-parser';
 import { db } from './db';
 import express from 'express';
@@ -14,8 +13,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(AuthRouter.router);
 
 app.use(ClassesRouter.router);
-
-app.use(UserRouter.router);
 
 app.use(AdminRouter.router);
 

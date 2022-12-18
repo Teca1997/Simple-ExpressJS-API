@@ -7,30 +7,41 @@ import { validate } from '../middlewares/validate';
 const router = express.Router();
 
 const routePrefix = '/admin/';
-router.route(`${routePrefix}user/`).get(authorize([3]), AdminController.getAllUsers);
+router.route(`${routePrefix}user`).get(authorize([3]), AdminController.getAllUsers);
 
 router
-	.route(`${routePrefix}user/create`)
+	.route(`${routePrefix}user`)
 	.post(validate(AdminValidator.createUser), authorize([3]), AdminController.createUser);
 
 router
-	.route(`${routePrefix}user/delete`)
+	.route(`${routePrefix}user`)
 	.delete(validate(AdminValidator.deleteUser), authorize([3]), AdminController.deleteUser);
 
 router
-	.route(`${routePrefix}user/update`)
+	.route(`${routePrefix}user`)
 	.put(validate(AdminValidator.updateUser), authorize([3]), AdminController.updateUser);
-
-router.route(`${routePrefix}class/`).get(authorize([3]), AdminController.getAllClasses);
 router
-	.route(`${routePrefix}class/create`)
+	.route(`${routePrefix}user`)
+	.patch(validate(AdminValidator.updateUserPartialy), authorize([3]), AdminController.updateUser);
+
+router.route(`${routePrefix}class`).get(authorize([3]), AdminController.getAllClasses);
+router
+	.route(`${routePrefix}class`)
 	.post(validate(AdminValidator.createClass), authorize([3]), AdminController.createClass);
 router
-	.route(`${routePrefix}class/delete`)
+	.route(`${routePrefix}class`)
 	.delete(validate(AdminValidator.deleteClass), authorize([3]), AdminController.deleteClass);
 router
-	.route(`${routePrefix}class/update`)
+	.route(`${routePrefix}class`)
 	.put(validate(AdminValidator.updateClass), authorize([3]), AdminController.updateClass);
+
+router
+	.route(`${routePrefix}class`)
+	.patch(
+		validate(AdminValidator.updateClassPartialy),
+		authorize([3]),
+		AdminController.updateClass
+	);
 
 router
 	.route(`${routePrefix}class/comments`)

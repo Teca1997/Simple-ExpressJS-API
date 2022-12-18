@@ -49,12 +49,29 @@ const updateUser = async (
 		}
 	}
 	await userRepo.update({ id: userId }, { username, password, email, role: roleId });
-	const user = (await userRepo.findBy({ id: userId }))[0];
+	const user = await getUserById(userId);
 	return user;
 };
 
 const getUserById = async (userId: number): Promise<User> => {
-	const user: any = userRepo.findOneBy({ id: userId });
+	const user: any = await userRepo.findOneBy({ id: userId });
+	console.log(user);
+	if (user == null) {
+		throw new Error('No user found');
+	}
+	return user;
+};
+
+const getUserByUsername = async (username: string): Promise<User> => {
+	const user: any = await userRepo.findOneBy({ username: username });
+	if (user == null) {
+		throw new Error('No user found');
+	}
+	return user;
+};
+
+const getUserByEmail = async (email: string): Promise<User> => {
+	const user: any = await userRepo.findOneBy({ email: email });
 	if (user == null) {
 		throw new Error('No user found');
 	}
@@ -91,5 +108,7 @@ export const UserService = {
 	isUserClassLimitReached,
 	isUserEnrolledInClass,
 	updateUser,
-	deleteUser
+	deleteUser,
+	getUserByUsername,
+	getUserByEmail
 };

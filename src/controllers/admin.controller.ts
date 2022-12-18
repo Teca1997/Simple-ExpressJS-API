@@ -3,6 +3,7 @@ import { sportClassRepo, userRepo } from '../db';
 
 import { ClassService } from '../services/class.service';
 import { StatusCodes } from 'http-status-codes';
+import { User } from '../models/User';
 import { UserService } from '../services/user.service';
 
 const getAllUsers = async (req: Request, res: Response) => {
@@ -26,13 +27,25 @@ const createUser = async (req: Request, res: Response) => {
 const updateUser = async (req: Request, res: Response) => {
 	try {
 		const { userId, username, email, password, roleId } = req.body;
+		if (email !== undefined) {
+			if (await User.isEmailTaken(email)) {
+				return res.status(StatusCodes.CONFLICT).send({ errors: ['Email already taken!'] });
+			}
+		}
+		if (username !== undefined) {
+			if (await User.isUsernameTaken(username)) {
+				return res
+					.status(StatusCodes.CONFLICT)
+					.send({ errors: ['Username already taken!'] });
+			}
+		}
 		const updatedUser = await UserService.updateUser(userId, username, email, password, roleId);
-		res.status(StatusCodes.OK).send({
+		return res.status(StatusCodes.OK).send({
 			user: updatedUser,
 			messages: ['User updated succesfully']
 		});
 	} catch (error) {
-		res.status(StatusCodes.NOT_FOUND).send({ errors: [error.message] });
+		return res.status(StatusCodes.NOT_FOUND).send({ errors: [error.message] });
 	}
 };
 
@@ -63,7 +76,7 @@ const createClass = async (req: Request, res: Response) => {
 			description
 		);
 		res.status(StatusCodes.CREATED).send({
-			cllass: newClass,
+			class: newClass,
 			messages: ['Class created succesfully']
 		});
 	} catch (error) {
