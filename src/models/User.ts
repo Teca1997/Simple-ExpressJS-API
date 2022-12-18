@@ -2,7 +2,7 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'ty
 
 import { BaseEntity } from './BaseEntity';
 import { Comment } from './Comment';
-import { Moment } from 'moment';
+import type { Moment } from 'moment';
 import { Rating } from './Rating';
 import { Role } from './Role';
 import { SportClass } from './SportClass';
