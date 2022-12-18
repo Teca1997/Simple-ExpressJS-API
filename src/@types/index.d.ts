@@ -11,7 +11,6 @@ declare global {
 			DB_SYNCHRONISE: string;
 			DB_DROP_TABLES_ON_SYNC: string;
 			DB_SEED: string;
-			DB_TYPE: string;
 			API_PORT: string;
 			TOKEN_KEY: string;
 			MAIL_SERVICE_USERNAME: string;

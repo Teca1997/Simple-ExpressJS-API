@@ -26,11 +26,10 @@ services:
       - DB_SYNCHRONISE=${DB_SYNCHRONISE-true}
       - DB_DROP_TABLES_ON_SYNC=${DB_DROP_TABLES_ON_SYNC-true}
       - DB_SEED=${DB_SEED-true}
-      - DB_TYPE=${DB_TYPE-postgres}
       - API_PORT=${API_PORT-5000}
       - TOKEN_KEY=${TOKEN_KEY-test_key}
-      - MAIL_SERVICE_USERNAME=${MAIL_SERVICE_USERNAME-test}
-      - MAIL_SERVICE_PASSWORD=${MAIL_SERVICE_PASSWORD-test}
+      - MAIL_SERVICE_USERNAME=${MAIL_SERVICE_USERNAME-florine.reichert@ethereal.email}
+      - MAIL_SERVICE_PASSWORD=${MAIL_SERVICE_PASSWORD-TTxWNydEu8qRsJZRrY}
 
   postgres:
     image: postgres:15
