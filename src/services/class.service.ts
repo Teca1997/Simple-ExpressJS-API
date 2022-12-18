@@ -58,7 +58,6 @@ const deleteClass = async (classId: number) => {
 
 const enrollUserIntoClass = async (userId: number, classId: number) => {
 	const sportClass = await sportClassRepo.findBy({ id: classId });
-	console.log(sportClass);
 	if (!sportClass.length) {
 		throw new Error(`Class ${classId} does not exist!`);
 	}
@@ -132,7 +131,6 @@ const hasUserLeftARatingOnClass = async (userId: number, classId: number): Promi
 
 const commentClass = async (userId: number, classId: number, comment: string) => {
 	const sportClass = await sportClassRepo.findBy({ id: classId });
-	console.log(sportClass);
 	if (!sportClass.length) {
 		throw new Error(`Class ${classId} does not exist!`);
 	}
@@ -147,7 +145,6 @@ const commentClass = async (userId: number, classId: number, comment: string) =>
 
 const rateClass = async (userId: number, classId: number, rating: number) => {
 	const sportClass = await sportClassRepo.findBy({ id: classId });
-	console.log(sportClass);
 	if (!sportClass.length) {
 		throw new Error(`Class ${classId} does not exist!`);
 	}

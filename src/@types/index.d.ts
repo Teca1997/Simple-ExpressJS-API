@@ -7,7 +7,6 @@ declare global {
 			DB_HOST: string;
 			DB_DATABASE: string;
 			DB_PASSWORD: string;
-			DB_PORT: string;
 			DB_LOGGING: string;
 			DB_SYNCHRONISE: string;
 			DB_DROP_TABLES_ON_SYNC: string;
@@ -15,7 +14,6 @@ declare global {
 			DB_TYPE: string;
 			API_PORT: string;
 			TOKEN_KEY: string;
-			EMAIL_FROM: string;
 			MAIL_SERVICE_USERNAME: string;
 			MAIL_SERVICE_PASSWORD: string;
 		}

@@ -5,9 +5,6 @@ import { StatusCodes } from 'http-status-codes';
 import { sportClassRepo } from '../db';
 
 const getfilteredClases = async (req: Request, res: Response, next: NextFunction) => {
-	console.log('Get filtered classes');
-
-	console.log(req.query);
 	let sports: string[] = [''];
 	let ageGroups: string[] = [''];
 	if (req.query.sports != undefined) {

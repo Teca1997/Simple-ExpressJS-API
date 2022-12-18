@@ -51,8 +51,6 @@ const login = async (req: Request, res: Response) => {
 	const { username, password } = req.body;
 	try {
 		const user: User = await AuthService.loginWithUserNameAndPassword(username, password);
-		/* console.log('user');
-		console.log(user); */
 		if (!user.verifiedDate)
 			return res
 				.status(StatusCodes.UNAUTHORIZED)

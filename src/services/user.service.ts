@@ -55,7 +55,6 @@ const updateUser = async (
 
 const getUserById = async (userId: number): Promise<User> => {
 	const user: any = await userRepo.findOneBy({ id: userId });
-	console.log(user);
 	if (user == null) {
 		throw new Error('No user found');
 	}
