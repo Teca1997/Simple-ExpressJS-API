@@ -1,4 +1,4 @@
-# Domagoj_Petrekovic_task
+# Simple ExpressJS API
 To build Docker container execute `docker-compose up` in root directory of this repo.
 .env file can be used to change some parameters of the container.
 If .env is not present in the root directory docker-compose will put default values for variables it would usualy pull from .env. 
